@@ -1,5 +1,5 @@
 <template>
-  <nav class="sidebar">
+  <nav class="sidebar close">
     <header>
       <div class="image-text">
         <span class="image">
@@ -82,12 +82,18 @@
 
     </div>
   </nav>
+  <section class="home">
+    <div class="text">Dashboard</div>
+  </section>
   <router-view/>
 </template>
 
 
 <script setup>
-import logo from "@/logo/codinglab.png"
+import logo from "@/logo/codinglab.png";
+
+
+
 
 
 </script>
@@ -106,6 +112,11 @@ import logo from "@/logo/codinglab.png"
   width: 250px;
   padding: 10px 14px;
   background: var(--sidebar-color);
+  transition: var(--tran-05);
+  z-index: 1;
+}
+.sidebar.close {
+  width: 88px;
 }
 
 /*===== Resuable CSS=====*/
@@ -113,6 +124,13 @@ import logo from "@/logo/codinglab.png"
   font-size: 16px;
   font-weight: 500;
   color: var(--text-color);
+  transition: var(--tran-04);
+  white-space: nowrap;
+  opacity: 1;
+}
+
+.sidebar.close .text {
+  opacity: 0;
 }
 
 .sidebar header {
@@ -187,7 +205,7 @@ header .image-text .hider-text {
   position: absolute;
   top: 50%;
   right: -25px;
-  transform: translateY(-50%);
+  transform:translateY(-50%) rotate(180deg) ;
   width: 25px;
   height: 25px;
   background: var(--primary-color);
@@ -197,14 +215,29 @@ header .image-text .hider-text {
   border-radius: 50px;
   font-size: 22px;
   color: var(--sidebar-color);
+  transition: var(--tran-05);
 
 }
+  .sidebar.close header .toggle{
+     transform: translateY(-50%);
+
+
+  }
+   body.dark .sidebar header .toggle{
+     transform: rotate(180deg);
+    color: var(--text-color);
+  }
+
 
 .sidebar .search-box {
+   border-radius: 5px;
   background: var(--primary-color-light);
 }
 
 .search-box input {
+  font-weight: 500;
+  font-size: 18px;
+
   height: 100%;
   width: 100%;
   border: none;
@@ -223,6 +256,11 @@ header .image-text .hider-text {
   color: var(--sidebar-color);
 }
 
+body.dark .sidebar li a:hover .icon,
+body.dark .sidebar li a:hover .text {
+  color: var(--text-color);
+}
+
 .sidebar .menu-bar {
   height: calc(100% - 50px);
   display: flex;
@@ -231,6 +269,8 @@ header .image-text .hider-text {
 }
 
 .menu-bar .mode {
+  position: relative;
+  border-radius: 5px;
   background: var(--primary-color-light);
 }
 
@@ -243,6 +283,7 @@ header .image-text .hider-text {
 }
 
 .menu-bar .mode i {
+  transition: var(--tran-03);
   position: absolute;
 }
 
@@ -250,8 +291,17 @@ header .image-text .hider-text {
   opacity: 0;
 
 }
+body.dark .menu-bar .mode i.sun {
+  opacity: 1;
+}
+body.dark .menu-bar .mode i.moon {
+  opacity: 0;
+}
 
 .menu-bar .mode .toggle-switch {
+  position: absolute;
+  right  : 0px;
+
   display: flex;
   height: 100%;
   align-items: center;
@@ -259,27 +309,45 @@ header .image-text .hider-text {
   min-width: 60px;
   cursor: pointer;
 
+
 }
 
-
 .toggle-switch .switch {
+  border-radius: 25px;
   position: relative;
+
   height: 22px;
   width: 44px;
-  border-radius: 25px;
   background: var(--toggle-color);
 }
 
-.switch:before {
-  content: '';
+.switch::before {
+  content: "";
   position: absolute;
+  border-radius: 50px;
   height: 15px;
   width: 15px;
-  border-radius: 50%;
-  top: 50%;
+  transform: translateY(3px);
   left: 5px;
-  transform: translateY(-50%);
   background: var(--sidebar-color);
+  transition: var(--tran-03);
+}
+
+body.dark .switch::before {
+  left: 20px;
+}
+
+.home{
+  position: relative;
+  left: 250px;
+  height: 100vh;
+  width: calc(100% - 250px);
+  background: var(--body-color);
+  transition: var(--tran-05);
+}
+.sidebar.close ~ .home{
+  left: 88px;
+  width: calc(100% - 88px);
 
 }
 
